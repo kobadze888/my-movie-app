@@ -1,10 +1,11 @@
 /**
- * ეს არის React (JSX) ფაილი, რომელიც აჩვენებს ფილმების თრეილერების აპლიკაციის დიზაინს.
- * განახლებული ვერსია API-დან მონაცემების ჩატვირთვით და ფილტრაციით.
+ * ИСПРАВЛЕННАЯ ВЕРСИЯ
+ * Мы импортируем только 'React' и используем React.useState, React.useMemo, React.useEffect
+ * чтобы исправить ошибку сборки на Vercel.
  */
 
-import React, { useState, useMemo, useEffect } from 'react';
-// რეალურ პროექტში, დაგჭირდებათ Tailwind CSS-ის იმპორტირება.
+import React from 'react';
+// 'useState', 'useMemo', 'useEffect' удалены из строки выше
 
 // --- Icon Components (Inline SVG) ---
 
@@ -384,17 +385,19 @@ function GenreFilter({ genres, activeGenre, onSelectGenre }) {
  * აპლიკაციის მთავარი კომპონენტი
  */
 export default function App() {
-  const [playingTrailerId, setPlayingTrailerId] = useState(null);
-  const [activeCategory, setActiveCategory] = useState('all'); // 'all', 'movie', 'series'
-  const [activeGenre, setActiveGenre] = useState('ყველა'); // 'ყველა', 'Action', 'Drama', ...
+  // ИСПРАВЛЕНИЕ: Используем React.useState
+  const [playingTrailerId, setPlayingTrailerId] = React.useState(null);
+  const [activeCategory, setActiveCategory] = React.useState('all'); // 'all', 'movie', 'series'
+  const [activeGenre, setActiveGenre] = React.useState('ყველა'); // 'ყველა', 'Action', 'Drama', ...
 
   // --- ახალი State-ები მონაცემების სამართავად ---
-  const [allMedia, setAllMedia] = useState([]); // აქ ჩაიტვირთება მონაცემები API-დან
-  const [isLoading, setIsLoading] = useState(true); // მონაცემების ჩატვირთვის სტატუსი
-  const [error, setError] = useState(null); // შეცდომის შესანახი
+  const [allMedia, setAllMedia] = React.useState([]); // აქ ჩაიტვირთება მონაცემები API-დან
+  const [isLoading, setIsLoading] = React.useState(true); // მონაცემების ჩატვირთვის სტატუსი
+  const [error, setError] = React.useState(null); // შეცდომის შესანახი
 
   // --- მონაცემების ჩატვირთვა useEffect-ით ---
-  useEffect(() => {
+  // ИСПРАВЛЕНИЕ: Используем React.useEffect
+  React.useEffect(() => {
     // === API-ს ლოგიკის დროებით გათიშვა ===
     /*
     const fetchMedia = async () => {
@@ -444,15 +447,15 @@ export default function App() {
   }, []); // [] ცარიელი მასივი ნიშნავს, რომ ეს ეფექტი გაეშვება მხოლოდ ერთხელ, კომპონენტის ჩატვირთვისას
 
   // --- ჟანრების სიის დინამიური გენერაცია ---
-  const allGenres = useMemo(() => {
+  // ИСПРАВЛЕНИЕ: Используем React.useMemo
+  const allGenres = React.useMemo(() => {
     const genres = new Set(allMedia.flatMap((item) => item.genres));
     return ['ყველა', ...genres];
   }, [allMedia]); // ეს კოდი გაეშვება ყოველ ჯერზე, როცა allMedia შეიცვლება
 
   // ფილტრაციის ლოგიკა
-  // useMemo გამოიყენება იმისთვის, რომ ფილტრაცია არ მოხდეს ყოველ რენდერზე,
-  // არამედ მხოლოდ მაშინ, როცა მონაცემები ან ფილტრები იცვლება.
-  const filteredMedia = useMemo(() => {
+  // ИСПРАВЛЕНИЕ: Используем React.useMemo
+  const filteredMedia = React.useMemo(() => {
     return allMedia.filter((item) => {
       // 1. ვფილტრავთ კატეგორიის მიხედვით
       const categoryMatch =
