@@ -467,7 +467,7 @@ export default function App() {
 
       return categoryMatch && genreMatch;
     });
-  }, [allMedia, activeCategory, activeGenre]); // დავამატეთ allMedia დამოკიდებულებებში
+  }, [allMedia, activeCategory, activeGenre]); // დავამატეთ allMedia დამოკิดებულებებში
   
   // სათაურის გენერაცია ფილტრების მიხედვით
   const getGridTitle = () => {
@@ -528,7 +528,7 @@ export default function App() {
 
       <footer className="mt-16 border-t border-gray-800 py-10 text-center">
         <p className="text-gray-500">
-          &copy; {new Date().getFullYear()} Movie Trailers App. დემო ვერსია.
+          &copy; {new Date().getFullYear()} Movie Trailers App. დემო ვერსია. Vercel Test v2.
         </p>
       </footer>
 
